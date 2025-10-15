@@ -26,6 +26,22 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Farmer Form Backend API',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      health: '/health',
+      test: '/api/test',
+      createOrder: '/api/create-order',
+      verifyPayment: '/api/verify-payment'
+    },
+    timestamp: new Date().toISOString()
+  })
+})
+
 // Health
 app.get('/health', (req, res) => res.json({ ok: true }))
 
