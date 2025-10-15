@@ -63,7 +63,8 @@ app.post('/api/create-order', async (req, res) => {
           manual_expiry_period: 7200,
           refund_speed: 'normal'
         }
-      }
+      },
+      payment_capture: 1
     })
 
     registration.orderId = order.id
