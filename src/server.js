@@ -13,9 +13,9 @@ app.use(express.json({ limit: '1mb' }))
 
 // Configure CORS for production deployment only
 const allowedOrigins = [
-  'https://farmformfront1.vercel.app',
-  'https://farmformfront1.vercel.app/',
-  'farmformfront1.vercel.app'
+  'https://farmformfront.vercel.app',
+  'https://farmformfront.vercel.app/',
+  'farmformfront.vercel.app'
 ]
 
 app.use(cors({ 
@@ -25,7 +25,7 @@ app.use(cors({
     
     if (allowedOrigins.some(allowedOrigin => 
       origin === allowedOrigin || 
-      origin.includes('farmformfront1.vercel.app')
+      origin.includes('farmformfront.vercel.app')
     )) {
       return callback(null, true);
     }
@@ -57,13 +57,13 @@ app.get('/', (req, res) => {
 
 // Health
 app.get('/health', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://farmformfront1.vercel.app');
+  res.header('Access-Control-Allow-Origin', 'https://farmformfront.vercel.app');
   res.json({ ok: true });
 })
 
 // Handle preflight requests
 app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', 'https://farmformfront1.vercel.app');
+  res.header('Access-Control-Allow-Origin', 'https://farmformfront.vercel.app');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
   res.sendStatus(200);
