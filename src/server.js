@@ -11,12 +11,9 @@ dotenv.config()
 const app = express()
 app.use(express.json({ limit: '1mb' }))
 
-// Configure CORS with multiple origins
+// Configure CORS for production deployment only
 const allowedOrigins = [
-  'https://farmformfront1.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:3000', 
-  'http://127.0.0.1:5173'
+  'https://farmformfront1.vercel.app'
 ]
 
 app.use(cors({ 
@@ -50,7 +47,10 @@ app.get('/api/test', (req, res) => {
   res.json({ 
     message: 'Backend connected successfully',
     timestamp: new Date().toISOString(),
-    cors: 'CORS configured for production'
+    cors: 'CORS configured for production only',
+    environment: 'PRODUCTION',
+    razorpayKeyId: RAZORPAY_KEY_ID ? 'Configured' : 'Missing',
+    mongoConnection: 'Connected'
   })
 })
 
