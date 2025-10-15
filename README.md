@@ -26,12 +26,11 @@ This is the backend application for the Farmer Form project built with Node.js, 
 
 2. Install dependencies:
    ```bash
-   cd backend
    npm install
    ```
 
 3. Set up environment variables:
-   Create a `.env` file in the backend directory with:
+   Create a `.env` file in the root directory with:
    ```
    MONGODB_URI=your_mongodb_connection_string
    RAZORPAY_KEY_ID=your_razorpay_key_id
