@@ -55,6 +55,14 @@ app.post('/api/create-order', async (req, res) => {
       notes: {
         farmerName: form.farmerName || '',
         contactNumber: form.contactNumber || ''
+      },
+      payment: {
+        capture: 'automatic',
+        capture_options: {
+          automatic_expiry_period: 12,
+          manual_expiry_period: 7200,
+          refund_speed: 'normal'
+        }
       }
     })
 
