@@ -47,9 +47,9 @@ app.post('/api/create-order', async (req, res) => {
       paymentStatus: 'pending',
     })
 
-    // Create an order on Razorpay (amount in paise; 0 INR = 0 paise for testing)
+    // Create an order on Razorpay (amount in paise; 300 INR = 30000 paise)
     const order = await razorpay.orders.create({
-      amount: 0,
+      amount: 30000,
       currency: 'INR',
       receipt: `reg_${registration._id}`,
       notes: {
