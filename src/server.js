@@ -11,7 +11,7 @@ dotenv.config()
 const app = express()
 app.use(express.json({ limit: '1mb' }))
 
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || ['https://farmformfront1.vercel.app', 'http://localhost:5173', 'http://localhost:3000']
+const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || ['http://localhost:5173', 'http://localhost:3000', 'http://127.0.0.1:5173']
 app.use(cors({ 
   origin: FRONTEND_ORIGIN, 
   credentials: false,
@@ -24,8 +24,8 @@ app.get('/health', (req, res) => res.json({ ok: true }))
 
 // Init services
 const MONGODB_URI = process.env.MONGODB_URI
-const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_live_RT3fwUOLsjptba'
-const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || 'DgXEOyCIrisBmePTZZwdibcR'
+const RAZORPAY_KEY_ID = process.env.RAZORPAY_KEY_ID || 'rzp_test_RTsRWiZCfVmrgI'
+const RAZORPAY_KEY_SECRET = process.env.RAZORPAY_KEY_SECRET || '7kelrOCQrsbW7c6e6GOduLAy'
 const razorpay = createRazorpay({ key_id: RAZORPAY_KEY_ID, key_secret: RAZORPAY_KEY_SECRET })
 
 // Connect DB
