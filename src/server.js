@@ -13,14 +13,30 @@ app.use(express.json({ limit: '1mb' }))
 
 // Configure CORS for production deployment only
 const allowedOrigins = [
-  'https://farmformfront1.vercel.app'
+  'https://farmformfront1.vercel.app',
+  'https://farmformfront1.vercel.app/',
+  'farmformfront1.vercel.app'
 ]
 
 app.use(cors({ 
-  origin: allowedOrigins, 
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.some(allowedOrigin => 
+      origin === allowedOrigin || 
+      origin.includes('farmformfront1.vercel.app')
+    )) {
+      return callback(null, true);
+    }
+    
+    const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+    return callback(new Error(msg), false);
+  },
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
 }))
 
 // Root route
@@ -40,7 +56,18 @@ app.get('/', (req, res) => {
 })
 
 // Health
-app.get('/health', (req, res) => res.json({ ok: true }))
+app.get('/health', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://farmformfront1.vercel.app');
+  res.json({ ok: true });
+})
+
+// Handle preflight requests
+app.options('*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', 'https://farmformfront1.vercel.app');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.sendStatus(200);
+})
 
 // Test API connectivity
 app.get('/api/test', (req, res) => {
