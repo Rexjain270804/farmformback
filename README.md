@@ -5,8 +5,9 @@ This is the backend application for the Farmer Form project built with Node.js, 
 ## Features
 
 - User registration and management
+- **Multi-crop registration support** - Farmers can register multiple crops with detailed information
 - MongoDB database integration
-- Razorpay payment integration
+- Razorpay payment integration (₹300 registration fee)
 - RESTful API endpoints
 - CORS enabled for frontend integration
 
@@ -45,9 +46,24 @@ This is the backend application for the Farmer Form project built with Node.js, 
 
 ## API Endpoints
 
-- `POST /api/register` - Register a new user
-- `GET /api/users` - Get all users
-- `POST /api/payment` - Process payment with Razorpay
+- `POST /api/create-order` - Create a registration with payment order (supports multi-crop data)
+- `POST /api/verify-payment` - Verify Razorpay payment and update registration status
+- `GET /health` - Health check endpoint
+- `GET /api/test` - Test API connectivity
+
+### Multi-Crop Data Structure
+
+Each registration can include multiple crops with the following fields:
+- `cropName` (required) - e.g., Rice, Wheat, Tomato
+- `cropType` (required) - Cereal, Pulse, Vegetable, Fruit, etc.
+- `variety` (optional) - Specific variety of the crop
+- `areaAllocated` (required) - Land area for the crop
+- `sowingDate` (required) - Date when crop was sown
+- `expectedHarvestDate` (optional) - Expected harvest date
+- `irrigationMethod` (optional) - Drip, Sprinkler, Flood, Rainfed, Mixed
+- `expectedYield` (optional) - Expected crop yield
+
+See [BACKEND_IMPLEMENTATION.md](./BACKEND_IMPLEMENTATION.md) for detailed documentation.
 
 ## Tech Stack
 
