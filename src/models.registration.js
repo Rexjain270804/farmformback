@@ -1,5 +1,17 @@
 import mongoose from 'mongoose'
 
+// Crop sub-schema for individual crop entries
+const CropSchema = new mongoose.Schema({
+  cropName: { type: String, required: true },
+  cropType: { type: String, required: true },
+  variety: String,
+  areaAllocated: { type: String, required: true },
+  sowingDate: { type: String, required: true },
+  expectedHarvestDate: String,
+  irrigationMethod: String,
+  expectedYield: String,
+}, { _id: false })
+
 const RegistrationSchema = new mongoose.Schema({
   email: { type: String, required: true },
   registrationDate: String,
@@ -14,10 +26,7 @@ const RegistrationSchema = new mongoose.Schema({
   aadhaarOrFarmerId: String,
   totalLand: String,
   areaUnderNaturalHa: String,
-  presentCrop: String,
-  sowingDate: String,
-  harvestingDate: String,
-  cropTypes: String,
+  crops: [CropSchema],
   currentPractice: String,
   yearsExperience: String,
   irrigationSource: String,
